@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Chat_All";
+}
+
+<h2>Chat_All</h2>
+<h3 id="UserName"></h3>
+<ul id="messageList"></ul>
+<input type="text" id="msg" name="msg" value="" />
+<input type="submit" id="btn" name="submit" value="送出" />
+
+@Scripts.Render("~/bundles/signalR")
+<script src="~/signalr/hubs"></script>
+<script>
+    $(function () {
+        //Hub名稱開頭須用小寫
+        var chat = $.connection.chatHub_All;
+
+        $("#UserName").html(prompt("請輸入名稱:"));
+
+        chat.client.AddNewMember = function (name) {
+            alert("新成員 " + name + " 加入聊天室")
+        };
+
+        chat.client.AddMessage = function (name, msg) {
+            $("#messageList").append("<li>" + name + ": " + msg + "</li>")
+        };
+
+        $.connection.hub.start().done(function () {
+            //呼叫function時，function名稱須用小寫
+            chat.server.helloToAll($("#UserName").text())
+        });
+
+        $("#btn").click(function () {
+            //呼叫function時，function名稱須用小寫
+            chat.server.sendMessageToAll($("#UserName").text(), $("#msg").val())
+        });
+    });
+</script>
