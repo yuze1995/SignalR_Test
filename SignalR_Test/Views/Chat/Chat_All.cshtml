@@ -26,12 +26,12 @@
         };
 
         $.connection.hub.start().done(function () {
-            //呼叫function時，function名稱須用小寫
+            //呼叫function時，function名稱開頭須用小寫
             chat.server.helloToAll($("#UserName").text())
         });
 
         $("#btn").click(function () {
-            //呼叫function時，function名稱須用小寫
+            //呼叫function時，function名稱開頭須用小寫
             chat.server.sendMessageToAll($("#UserName").text(), $("#msg").val())
         });
     });

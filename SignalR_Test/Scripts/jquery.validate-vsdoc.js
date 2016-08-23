@@ -269,7 +269,7 @@ $.extend($.validator, {
 	
 	defaults: {
 		messages: {},
-		groups: {},
+		groupList: {},
 		rules: {},
 		errorClass: "error",
 		validClass: "valid",
@@ -363,10 +363,10 @@ $.extend($.validator, {
 			this.invalid = {};
 			this.reset();
 			
-			var groups = (this.groups = {});
-			$.each(this.settings.groups, function(key, value) {
+			var groupList = (this.groupList = {});
+			$.each(this.settings.groupList, function(key, value) {
 				$.each(value.split(/\s/), function(index, name) {
-					groups[name] = key;
+					groupList[name] = key;
 				});
 			});
 			var rules = this.settings.rules;
@@ -773,7 +773,7 @@ $.extend($.validator, {
 		},
 		
 		idOrName: function(element) {
-			return this.groups[element.name] || (this.checkable(element) ? element.name : element.id || element.name);
+			return this.groupList[element.name] || (this.checkable(element) ? element.name : element.id || element.name);
 		},
 
 		checkable: function( element ) {

@@ -12,5 +12,10 @@ namespace SignalR_Test.Controllers
         {
             return View();
         }
+
+        public ActionResult Chat_Group()
+        {
+            return View();
+        }
     }
 }

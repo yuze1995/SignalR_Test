@@ -1197,7 +1197,7 @@ try {
 function Sizzle( selector, context, results, seed ) {
 	var match, elem, m, nodeType,
 		// QSA vars
-		i, groups, old, nid, newContext, newSelector;
+		i, groupList, old, nid, newContext, newSelector;
 
 	if ( ( context ? context.ownerDocument || context : preferredDoc ) !== document ) {
 		setDocument( context );
@@ -1266,7 +1266,7 @@ function Sizzle( selector, context, results, seed ) {
 			// and working up from there (Thanks to Andrew Dupont for the technique)
 			// IE 8 doesn't work on object elements
 			if ( nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
-				groups = tokenize( selector );
+				groupList = tokenize( selector );
 
 				if ( (old = context.getAttribute("id")) ) {
 					nid = old.replace( rescape, "\\$&" );
@@ -1275,12 +1275,12 @@ function Sizzle( selector, context, results, seed ) {
 				}
 				nid = "[id='" + nid + "'] ";
 
-				i = groups.length;
+				i = groupList.length;
 				while ( i-- ) {
-					groups[i] = nid + toSelector( groups[i] );
+					groupList[i] = nid + toSelector( groupList[i] );
 				}
 				newContext = rsibling.test( selector ) && context.parentNode || context;
-				newSelector = groups.join(",");
+				newSelector = groupList.join(",");
 			}
 
 			if ( newSelector ) {
@@ -2411,7 +2411,7 @@ Expr.setFilters = new setFilters();
 
 function tokenize( selector, parseOnly ) {
 	var matched, match, tokens, type,
-		soFar, groups, preFilters,
+		soFar, groupList, preFilters,
 		cached = tokenCache[ selector + " " ];
 
 	if ( cached ) {
@@ -2419,7 +2419,7 @@ function tokenize( selector, parseOnly ) {
 	}
 
 	soFar = selector;
-	groups = [];
+	groupList = [];
 	preFilters = Expr.preFilter;
 
 	while ( soFar ) {
@@ -2430,7 +2430,7 @@ function tokenize( selector, parseOnly ) {
 				// Don't consume trailing commas as valid
 				soFar = soFar.slice( match[0].length ) || soFar;
 			}
-			groups.push( tokens = [] );
+			groupList.push( tokens = [] );
 		}
 
 		matched = false;
@@ -2473,7 +2473,7 @@ function tokenize( selector, parseOnly ) {
 		soFar ?
 			Sizzle.error( selector ) :
 			// Cache the tokens
-			tokenCache( selector, groups ).slice( 0 );
+			tokenCache( selector, groupList ).slice( 0 );
 }
 
 function toSelector( tokens ) {
