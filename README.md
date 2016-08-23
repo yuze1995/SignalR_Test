@@ -3,5 +3,5 @@ SignalR的小練習<br>
 三種類型 All、Group、Client皆有使用<br>
 資料庫使用Code First建立<br>
 
-Usage:
+Usage:<br>
 http://localhost:[port]/Chat/Chat_Group
