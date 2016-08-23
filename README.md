@@ -1,0 +1,4 @@
+SignalR的小練習
+利用SignalR去實做一個小型的群組聊天室
+三種類型 All、Group、Client皆有使用
+資料庫使用Code First建立
